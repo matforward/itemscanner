@@ -32,6 +32,15 @@ class UsersController extends AppController {
 	public function logout() {
 		return $this->redirect($this->Auth->logout());
 	}
+	
+	public function ranking() {
+		$allArticles = $this->User->find('all', array(
+        'order' => array('User.point' => 'desc')));
+		$this->set('users', $allArticles);
+		$this->set('_serialize', array('users'));
+
+	
+	}
 /**
  * index method
  *

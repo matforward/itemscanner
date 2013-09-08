@@ -44,7 +44,7 @@ var $components = array(
 	);
 
     public function beforeFilter() {
-        $this->Auth->allow('all');
+        $this->Auth->allow();
     }
 var $helpers = array(
     'FilterResults.Search' => array(
