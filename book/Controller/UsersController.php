@@ -13,7 +13,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'RequestHandler');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -38,8 +38,30 @@ class UsersController extends AppController {
  * @return void
  */
 	public function index() {
+	
+		    $this->Filter->addFilters(
+        array(
+            'filter1' => array(
+                'User.username' => array(
+                    'operator' => 'LIKE',
+                    'value' => array(
+                        'before' => '%', // optional
+                        'after'  => '%'  // optional
+                    )
+                )
+            )
+		)
+    );
+
+    $this->Filter->setPaginate('order', 'User.username ASC'); // optional
+    $this->Filter->setPaginate('limit', 10);              // optional
+
+    // Define conditions
+    $this->Filter->setPaginate('conditions', $this->Filter->getConditions());
+
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
+		$this->set('_serialize', array('users'));
 	}
 
 /**
