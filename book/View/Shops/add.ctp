@@ -8,6 +8,9 @@
 		echo $this->Form->input('address');
 		echo $this->Form->input('geox');
 		echo $this->Form->input('geoy');
+		echo $this->Form->input('logo');
+		echo $this->Form->input('phone');
+		echo $this->Form->input('operating');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

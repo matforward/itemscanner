@@ -45,4 +45,8 @@
 		<li><?php echo $this->Html->link(__('List Shops'), array('controller' => 'shops', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Shop'), array('controller' => 'shops', 'action' => 'add')); ?> </li>
 	</ul>
+	<?php
+	echo $this->Search->create();
+echo $this->Search->input('filter1');
+echo $this->Search->end(__('Filter', true));?>
 </div>

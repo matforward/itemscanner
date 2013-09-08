@@ -8,6 +8,9 @@
 			<th><?php echo $this->Paginator->sort('address'); ?></th>
 			<th><?php echo $this->Paginator->sort('geox'); ?></th>
 			<th><?php echo $this->Paginator->sort('geoy'); ?></th>
+			<th><?php echo $this->Paginator->sort('logo'); ?></th>
+			<th><?php echo $this->Paginator->sort('phone'); ?></th>
+			<th><?php echo $this->Paginator->sort('operating'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($shops as $shop): ?>
@@ -20,6 +23,9 @@
 		<td><?php echo h($shop['Shop']['address']); ?>&nbsp;</td>
 		<td><?php echo h($shop['Shop']['geox']); ?>&nbsp;</td>
 		<td><?php echo h($shop['Shop']['geoy']); ?>&nbsp;</td>
+		<td><?php echo h($shop['Shop']['logo']); ?>&nbsp;</td>
+		<td><?php echo h($shop['Shop']['phone']); ?>&nbsp;</td>
+		<td><?php echo h($shop['Shop']['operating']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $shop['Shop']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $shop['Shop']['id'])); ?>
@@ -49,4 +55,8 @@
 		<li><?php echo $this->Html->link(__('List Items'), array('controller' => 'items', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Item'), array('controller' => 'items', 'action' => 'add')); ?> </li>
 	</ul>
+		<?php
+	echo $this->Search->create();
+echo $this->Search->input('filter1');
+echo $this->Search->end(__('Filter', true));?>
 </div>

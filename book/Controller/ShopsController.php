@@ -13,7 +13,7 @@ class ShopsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'RequestHandler');
+	public $components = array('Paginator', 'RequestHandler','Session');
 
 /**
  * index method
@@ -21,6 +21,25 @@ class ShopsController extends AppController {
  * @return void
  */
 	public function index() {
+	    $this->Filter->addFilters(
+        array(
+            'filter1' => array(
+                'Shop.name' => array(
+                    'operator' => 'LIKE',
+                    'value' => array(
+                        'before' => '%', // optional
+                        'after'  => '%'  // optional
+                    )
+                )
+            )
+        )
+    );
+
+    $this->Filter->setPaginate('order', 'Item.name ASC'); // optional
+    $this->Filter->setPaginate('limit', 10);              // optional
+
+    // Define conditions
+    $this->Filter->setPaginate('conditions', $this->Filter->getConditions());
 		$this->Shop->recursive = 0;
 		$this->set('shops', $this->Paginator->paginate());
 		$this->set('_serialize', array('shops'));

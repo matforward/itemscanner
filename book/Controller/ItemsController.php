@@ -13,14 +13,45 @@ class ItemsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'RequestHandler');
+	public $components = array('Paginator', 'RequestHandler', 'Session');
 
+	
 /**
  * index method
  *
  * @return void
  */
 	public function index() {
+	
+	    $this->Filter->addFilters(
+        array(
+            'filter1' => array(
+                'Item.name' => array(
+                    'operator' => 'LIKE',
+                    'value' => array(
+                        'before' => '%', // optional
+                        'after'  => '%'  // optional
+                    )
+                )
+            ),
+            'filter2' => array(
+                'Item.isbn' => array(
+                    'operator' => 'LIKE',
+                    'value' => array(
+                        'before' => '%', // optional
+                        'after'  => '%'  // optional
+                    )
+                )
+            )
+        )
+    );
+
+    $this->Filter->setPaginate('order', 'Item.name ASC'); // optional
+    $this->Filter->setPaginate('limit', 10);              // optional
+
+    // Define conditions
+    $this->Filter->setPaginate('conditions', $this->Filter->getConditions());
+	
 		$this->Item->recursive = 0;
 		$this->set('items', $this->Paginator->paginate());
 		$this->set('_serialize', array('items'));
@@ -49,11 +80,12 @@ class ItemsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Item->create();
-			if ($this->Item->save($this->request->data)) {
-				$this->Session->setFlash(__('The item has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
+				if ($this->Item->save($this->request->data)) {
+					$this->Session->setFlash(__('The item has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
+		
 			}
 		}
 	}

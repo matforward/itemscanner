@@ -24,4 +24,42 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+var $components = array(
+    'FilterResults.Filter' => array(
+        'auto' => array(
+            'paginate' => false,
+            'explode'  => true,  // recommended
+        ),
+        'explode' => array(
+            'character'   => ' ',
+            'concatenate' => 'AND',
+        )
+    ),
+	'Session',
+    'Auth' => array(
+            'loginRedirect' => array('controller' => 'items', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'items', 'action' => 'index')
+		)
+	);
+
+    public function beforeFilter() {
+        $this->Auth->allow('all');
+    }
+var $helpers = array(
+    'FilterResults.Search' => array(
+        'operators' => array(
+            'LIKE'       => 'containing',
+            'NOT LIKE'   => 'not containing',
+            'LIKE BEGIN' => 'starting with',
+            'LIKE END'   => 'ending with',
+            '='  => 'equal to',
+            '!=' => 'different',
+            '>'  => 'greater than',
+            '>=' => 'greater or equal to',
+            '<'  => 'less than',
+            '<=' => 'less or equal to'
+        )
+    )
+);
 }

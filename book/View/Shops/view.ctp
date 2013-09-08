@@ -31,6 +31,21 @@
 			<?php echo h($shop['Shop']['geoy']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('logo'); ?></dt>
+		<dd>
+			<?php echo h($shop['Shop']['logo']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('phone'); ?></dt>
+		<dd>
+			<?php echo h($shop['Shop']['phone']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('operating'); ?></dt>
+		<dd>
+			<?php echo h($shop['Shop']['operating']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
